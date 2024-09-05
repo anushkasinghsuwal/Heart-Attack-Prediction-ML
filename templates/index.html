@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Heart Attack Risk Prediction</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <script>
+        function updateHiddenInput(selectElement) {
+            const hiddenInput = document.querySelector(`[name="${selectElement.dataset.target}"]`);
+            hiddenInput.value = selectElement.value;
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h2 class="mt-5">Heart Attack Risk Prediction</h2>
+        <form method="POST" action="/predict">
+            <div class="form-group">
+                <label>Age Group</label>
+                <select class="form-control" data-target="age_group" onchange="updateHiddenInput(this)" required>
+                    <option value="" disabled selected>Select an option</option>
+                    <option value="1">0-10</option>
+                    <option value="2">10-20</option>
+                    <option value="3">20-30</option>
+                    <option value="4">30-40</option>
+                    <option value="5">40-50</option>
+                    <option value="6">50-60</option>
+                    <option value="7">60-70</option>
+                    <option value="8">70-80</option>
+                    <option value="9">80-90</option>
+                    <option value="10">90-100</option>
+                </select>
+                <input type="hidden" name="age_group" required>
+            </div>
+            <div class="form-group">
+                <label>Gender</label>
+                <select class="form-control" data-target="gender" onchange="updateHiddenInput(this)" required>
+                    <option value="" disabled selected>Select an option</option>
+                    <option value="0">Female</option>
+                    <option value="1">Male</option>
+                </select>
+                <input type="hidden" name="gender" required>
+            </div>
+            <div class="form-group">
+                <label>Cast</label>
+                <select class="form-control" data-target="cast" onchange="updateHiddenInput(this)" required>
+                    <option value="" disabled selected>Select an option</option>
+                    <option value="0">African American</option>
+                    <option value="1">Asian</option>
+                    <option value="2">Caucasian</option>
+                    <option value="3">Hispanic</option>
+                    <option value="4">Other</option>
+                </select>
+                <input type="hidden" name="cast" required>
+            </div>
+            <div class="form-group">
+                <label>Insulin</label>
+                <select class="form-control" data-target="insulin" onchange="updateHiddenInput(this)" required>
+                    <option value="" disabled selected>Select an option</option>
+                    <option value="10">Up</option>
+                    <option value="-10">Down</option>
+                    <option value="0">Steady</option>
+                    <option value="-20">No</option>
+                </select>
+                <input type="hidden" name="insulin" required>
+            </div>
+            <div class="form-group">
+                <label>A1C Result</label>
+                <select class="form-control" data-target="A1Cresult" onchange="updateHiddenInput(this)" required>
+                    <option value="" disabled selected>Select an option</option>
+                    <option value="5">Norm</option>
+                    <option value="7">>7</option>
+                    <option value="8">>8</option>
+                    <option value="0">None</option>
+                </select>
+                <input type="hidden" name="A1Cresult" required>
+            </div>
+            <div class="form-group">
+                <label>Max Glucose Serum</label>
+                <select class="form-control" data-target="max_glu_serum" onchange="updateHiddenInput(this)" required>
+                    <option value="" disabled selected>Select an option</option>
+                    <option value="100">Norm</option>
+                    <option value="200">>200</option>
+                    <option value="300">>300</option>
+                    <option value="0">None</option>
+                </select>
+                <input type="hidden" name="max_glu_serum" required>
+            </div>
+            <div class="form-group">
+                <label>Med</label>
+                <select class="form-control" data-target="Med" onchange="updateHiddenInput(this)" required>
+                    <option value="" disabled selected>Select an option</option>
+                    <option value="0">No</option>
+                    <option value="1">Yes</option>
+                </select>
+                <input type="hidden" name="Med" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Predict</button>
+        </form>
+        {% if prediction_text %}
+            <h3 class="mt-5">{{ prediction_text }}</h3>
+            <p>{{ suggestion_text }}</p>
+        {% endif %}
+    </div>
+</body>
+</html>
